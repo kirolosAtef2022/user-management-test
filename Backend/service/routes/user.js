@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const { MongoClient } = require('mongodb');
 
-
+//example connection  
+//can be replaced and refactored
 async function connectToMongoDB() {
   try {
     const uri = "mongodb://root:root@mongo-user:27017/userdb"
@@ -16,19 +17,6 @@ async function connectToMongoDB() {
 }
 
 router.get('', async (req, res) => {
-  //example connection
-    try {
-        const client = await connectToMongoDB();
-        const collection = client.db().collection("users");
-        const cursor = await collection.find()
-        const result = await cursor.toArray();
-
-        await client.close();
-
-        return res.json(result);
-    } catch (err) {
-        console.error('Error connecting to MongoDB or inserting data:', err);
-    }
 
   res.send("TODO User GET")
 })
