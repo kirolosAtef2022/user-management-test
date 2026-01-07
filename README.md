@@ -7,7 +7,7 @@ Alle Services werden lokal über **Docker** betrieben.
 
 ## Aufgabe
 Erstelle eine Webapp in der folgende Funktionalitäten bereitgestellt werden:
-- Import der CSV-Datei mit Userdaten
+- Import der Userdaten aus der CSV in die Datenbank
 - Anzeige der Userdaten tabellarisch auf einer Webseite.
 - User anlegen und anpassen können
 - User blockieren und freischalten können
