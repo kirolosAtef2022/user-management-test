@@ -5,6 +5,16 @@ Alle Services werden lokal über **Docker** betrieben.
 
 ---
 
+## Aufgabe
+Erstelle eine Webapp in der folgende Funktionalitäten bereitgestellt werden:
+- Import der CSV-Datei mit Userdaten
+- Anzeige der Userdaten tabellarisch auf einer Webseite.
+- User anlegen und anpassen können
+- User blockieren und freischalten können
+- In der Tabelle nach verschiedenen Attributen sortieren und filtern können
+
+---
+
 ## Voraussetzungen
 
 Bitte stelle sicher, dass folgende Tools installiert sind:
@@ -88,16 +98,6 @@ Bewerbertest2026
 - Backend und Frontend laufen in getrennten Docker-Containern
 - Hot Reload ist für beide Services aktiviert
 - Die API ist über Docker-internes Networking mit MongoDB verbunden
-
----
-
-## Aufgabe
-Erstelle eine Webapp in der folgende Funktionalitäten bereitgestellt werden:
-- Import der CSV-Datei mit Userdaten
-- Anzeige der Userdaten tabellarisch auf einer Webseite.
-- User anlegen und anpassen können
-- User blockieren und freischalten können
-- In der Tabelle nach verschiedenen Attributen sortieren und filtern können
 
 
 Viel Erfolg beim Bewerbertest 🚀
