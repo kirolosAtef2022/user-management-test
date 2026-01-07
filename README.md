@@ -63,21 +63,21 @@ http://localhost:5001
 ## Projektstruktur (Übersicht)
 
 Bewerbertest2026
-├── Backend
-│ ├── app
-│ ├── Database
-│ ├── docker-compose.yml
-│ ├── Dockerfile.dev
-│ ├── index.js
-│ └── package.json
-│
-├── Frontend
-│ ├── app
-│ ├── docker-compose.yml
-│ └── Dockerfile.dev
-│
-├── user.csv
-└── README.md
+- Backend
+-- app
+-- Database
+-- docker-compose.yml
+-- Dockerfile.dev
+-- index.js
+-- package.json
+
+- Frontend
+-- app
+-- docker-compose.yml
+-- Dockerfile.dev
+
+- user.csv
+- README.md
 
 ---
 
