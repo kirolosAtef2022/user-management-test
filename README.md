@@ -35,7 +35,7 @@ http://localhost:4001
 ### Datenbank
 
 Die MongoDB läuft in einem Docker-Container.  
-Optional kann die Datenbank initialisiert bzw. zurückgesetzt werden.
+Die Datenbank kann initialisiert bzw. zurückgesetzt werden.
 
 ```bash
 chmod +x initiateDB.sh
