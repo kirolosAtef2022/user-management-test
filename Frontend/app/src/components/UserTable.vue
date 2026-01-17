@@ -4,7 +4,7 @@ defineProps({
   loading: Boolean,
 });
 
-defineEmits(["toggle", "edit"]);
+defineEmits(["block", "unblock", "edit"]);
 
 const headers = [
   { title: "#", key: "index" },
@@ -53,13 +53,22 @@ function formatDateTime(value) {
     <template #item.actions="{ item }">
       <v-btn
         size="x-small"
-        :color="item.active ? 'success' : 'error'"
+        color="success"
         class="mr-1"
-        @click="$emit('toggle', item)"
+        @click="$emit('block', item)"
+        :disabled="!item.active"
       >
-        <v-icon>
-          {{ item.active ? "mdi-lock" : "mdi-lock-open" }}
-        </v-icon>
+        Block
+      </v-btn>
+
+      <v-btn
+        size="x-small"
+        color="error"
+        class="mr-1"
+        @click="$emit('unblock', item)"
+        :disabled="item.active"
+      >
+        Unblock
       </v-btn>
 
       <v-btn

@@ -1,5 +1,9 @@
 import { ref } from "vue";
-import { getUsers, toggleBlockUser } from "@/services/users.api";
+import {
+  getUsers,
+  toggleUserBlock,
+  toggleUserUnblock,
+} from "@/services/users.api";
 
 /**
  * useUsers composable
@@ -24,10 +28,16 @@ export function useUsers() {
   }
 
   // ===== BLOCK / UNBLOCK =====
-  async function toggleStatus(user) {
+  async function toggleStatusBlock(user) {
     // optimistic UI update
-    user.active = !user.active;
-    await toggleBlockUser(user._id);
+    user.active = false;
+    await toggleUserBlock(user._id);
+  }
+
+  async function toggleStatusUnblock(user) {
+    // optimistic UI update
+    user.active = true;
+    await toggleUserUnblock(user._id);
   }
 
   // ===== CREATE / EDIT =====
@@ -55,7 +65,8 @@ export function useUsers() {
 
     // actions
     loadUsers,
-    toggleStatus,
+    toggleStatusBlock,
+    toggleStatusUnblock,
     openCreate,
     openEdit,
     onSaved,

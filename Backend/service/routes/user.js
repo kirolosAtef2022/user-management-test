@@ -1,19 +1,3 @@
-// const router = require("express").Router();
-// const {
-//   getAllUsers,
-//   getUserById,
-//   createUser,
-//   updateUser,
-//   toggleUserBlock,
-// } = require("../controller/userController");
-
-// router.get("/", getAllUsers);
-// router.get("/:id", getUserById);
-// router.post("/", createUser);
-// router.patch("/:id", updateUser);
-// router.patch("/:id/block", toggleUserBlock);
-
-// module.exports = router;
 const router = require("express").Router();
 
 const {
@@ -22,6 +6,7 @@ const {
   createUser,
   updateUser,
   toggleUserBlock,
+  toggleUserUnblock,
 } = require("../controller/userController");
 
 // middlewares
@@ -65,5 +50,6 @@ router.patch(
  * BLOCK / UNBLOCK user
  */
 router.patch("/:id/block", loadUser, toggleUserBlock);
+router.patch("/:id/unblock", loadUser, toggleUserUnblock);
 
 module.exports = router;

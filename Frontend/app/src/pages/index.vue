@@ -15,7 +15,8 @@ const {
   dialogOpen,
   selectedUser,
   loadUsers,
-  toggleStatus,
+  toggleStatusBlock,
+  toggleStatusUnblock,
   openCreate,
   openEdit,
   onSaved,
@@ -61,7 +62,7 @@ onMounted(loadUsers);
 </script>
 
 <template>
-  <v-container>
+  <v-container fluid>
     <v-card>
       <!-- Header: create + search -->
       <UserHeader @create="openCreate" @search="search = $event" />
@@ -70,7 +71,8 @@ onMounted(loadUsers);
       <UserTable
         :users="filteredUsers"
         :loading="loading"
-        @toggle="toggleStatus"
+        @block="toggleStatusBlock"
+        @unblock="toggleStatusUnblock"
         @edit="openEdit"
       />
     </v-card>

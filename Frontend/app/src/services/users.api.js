@@ -8,4 +8,6 @@ export const createUser = (data) => api.post("/users", data);
 
 export const updateUser = (id, data) => api.patch(`/users/${id}`, data);
 
-export const toggleBlockUser = (id) => api.patch(`/users/${id}/block`);
+export const toggleUserBlock = (id) => api.patch(`/users/${id}/block`);
+
+export const toggleUserUnblock = (id) => api.patch(`/users/${id}/unblock`);

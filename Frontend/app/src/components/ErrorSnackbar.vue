@@ -29,7 +29,7 @@ const emit = defineEmits(["update:modelValue"]);
     :model-value="modelValue"
     color="error"
     timeout="4000"
-    location="bottom right"
+    location="bottom left"
     @update:model-value="emit('update:modelValue', $event)"
   >
     {{ message }}
