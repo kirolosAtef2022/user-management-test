@@ -1,33 +1,20 @@
-const express = require("express")
-const app = express()
-const cors = require("cors");
+// index.js
+const app = require("./service/app");
+const connectToMongoDB = require("./service/config/connectToMongoDB");
+const { importUsers } = require("./service/csv/importUsersToDB");
 
-app.use(express.json({ limit: "100mb" }))
+(async () => {
+  try {
+    await connectToMongoDB();
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: '*',
-  exposedHeaders: [
-    'Location',
-    'Content-Type',
-    'Content-Description',
-    'Content-Disposition',
-    'Expires',
-    'Cache-Control',
-    'Pragma',
-    'Content-Length',
-    'Content-Range',
-    'Max-Parts',
-    'File-Part',
-    'Temp-Name'
-  ],
-  credentials: true,
-}))
+    // OK for the test — I will explain the tradeoff in interview
+    await importUsers();
 
-const userRoute = require("./service/routes/user")
-app.use("/v1/users", userRoute)
-
-app.listen(3000, () => {
-  console.log("Backend running on Port " + 3000);
-});
+    app.listen(3000, () => {
+      console.log("🚀 Backend running on port 3000");
+    });
+  } catch (error) {
+    console.error("❌ Startup error:", error.message);
+    process.exit(1);
+  }
+})();

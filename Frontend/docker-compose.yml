@@ -1,5 +1,4 @@
 services:
-
   frontend_service_user:
     container_name: fe_service_user
     build:
@@ -14,4 +13,4 @@ services:
       - "5001:8080"
     environment:
       TZ: Europe/Berlin
-
+      VITE_API_BASE_URL: http://localhost:4001/v1

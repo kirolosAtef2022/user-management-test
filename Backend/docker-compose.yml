@@ -1,28 +1,28 @@
 services:
-
   backend_service_user:
     container_name: be_service_user
+    depends_on:
+      - mongo-user
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: Dockerfile.dev
     volumes:
       - ./:/app
-      - ./index.js:/app/index.js
-      - ./package.json:/app/package.json
-      - ./package-lock.json:/app/package-lock.json
+      - ./data/user.csv:/app/data/user.csv
       - /app/node_modules
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
     ports:
       - "4001:3000"
     environment:
       TZ: Europe/Berlin
+      MONGO_URI: mongodb://mongo-user:27017/userdb
 
   mongo-user:
     container_name: db_user
-    image: mongo:latest
-    volumes:
-      - ./Database/mongodb_user:/data/db
+    image: mongo:6
     ports:
       - "35555:27017"
-    command: mongod --quiet --logpath /dev/null
+    volumes:
+      - mongo_user_data:/data/db
+
+volumes:
+  mongo_user_data:

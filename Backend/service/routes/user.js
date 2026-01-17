@@ -1,48 +1,69 @@
-const router = require('express').Router()
-const { MongoClient } = require('mongodb');
+// const router = require("express").Router();
+// const {
+//   getAllUsers,
+//   getUserById,
+//   createUser,
+//   updateUser,
+//   toggleUserBlock,
+// } = require("../controller/userController");
 
-//example connection  
-//can be replaced and refactored
-async function connectToMongoDB() {
-  try {
-    const uri = "mongodb://root:root@mongo-user:27017/userdb"
-    const client = new MongoClient(uri);
-    await client.connect();
-    
-    return client;
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-    throw error;
-  }
-}
+// router.get("/", getAllUsers);
+// router.get("/:id", getUserById);
+// router.post("/", createUser);
+// router.patch("/:id", updateUser);
+// router.patch("/:id/block", toggleUserBlock);
 
-router.get('', async (req, res) => {
+// module.exports = router;
+const router = require("express").Router();
 
-  res.send("TODO User GET")
-})
+const {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  toggleUserBlock,
+} = require("../controller/userController");
 
-router.get('/:id', async (req, res) => {
-  res.send("TODO User GET ID")
+// middlewares
+const loadUser = require("../middleware/loadUser");
+const validateBody = require("../middleware/validateBody");
+const checkUniqueEmail = require("../middleware/checkUniqueEmail");
 
-})
+// validation schemas
+const {
+  createUserSchema,
+  updateUserSchema,
+} = require("../validation/user.validation");
 
-router.post('', async (req, res) => {
-  res.send("TODO User POST")
+/**
+ * GET all users
+ */
+router.get("/", getAllUsers);
 
-})
+/**
+ * GET user by id
+ */
+router.get("/:id", loadUser, getUserById);
 
-router.patch('/:id', async (req, res) => {
-  res.send("TODO User PATCH id")
+/**
+ * CREATE user
+ */
+router.post("/", validateBody(createUserSchema), createUser);
 
-})
+/**
+ * UPDATE user
+ */
+router.patch(
+  "/:id",
+  loadUser,
+  validateBody(updateUserSchema),
+  checkUniqueEmail,
+  updateUser
+);
 
-router.patch('/:id/block', async (req, res) => {
-  res.send("TODO User Block")
+/**
+ * BLOCK / UNBLOCK user
+ */
+router.patch("/:id/block", loadUser, toggleUserBlock);
 
-})
-
-router.patch('/:id/unblock', async (req, res) => {
-  res.send("TODO User unblock")
-})
-
-module.exports = router
+module.exports = router;

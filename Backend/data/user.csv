@@ -1,6 +1,6 @@
 Name,Email,IPAddress,Location,Active,LastLogin
 Anna Müller,anna.mueller@example.com,192.168.10.1,Berlin,true,2026-01-06 08:12:45
-Max Schmidt,max.schmidt@example.com,192.168.10.2,Hamburg,false,2026-01-06 19:44:10
+Max Schmidt,max.schmidt@example.com,192.168.10.2,Hamburg,false,2026-01-09 19:44:10
 Laura Weber,laura.weber@example.com,192.168.10.3,München,true,2026-01-07 09:03:22
 Jonas Fischer,jonas.fischer@example.com,192.168.10.4,Köln,true,2026-01-07 21:55:01
 Sophie Becker,sophie.becker@example.com,192.168.10.5,Frankfurt,false,2026-01-06 14:27:36

@@ -12,8 +12,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
+    ErrorSnackbar: typeof import('./src/components/ErrorSnackbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SuccessSnackbar: typeof import('./src/components/SuccessSnackbar.vue')['default']
     TODO: typeof import('./src/components/TODO.vue')['default']
+    UserFormDialog: typeof import('./src/components/UserFormDialog.vue')['default']
+    UserHeader: typeof import('./src/components/UserHeader.vue')['default']
+    UserTable: typeof import('./src/components/UserTable.vue')['default']
   }
 }
