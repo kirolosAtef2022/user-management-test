@@ -27,61 +27,70 @@ The application is **fully Dockerized** with **separate Docker setups for backen
 
 ## High-Level Architecture
 
-Frontend (Vue 3 + Vuetify)
-│
-│ REST API
-▼
-Backend (Express)
-├─ Validation (Joi)
-├─ Normalization & Parsing
-├─ Business Rules
-├─ CSV Import Script
-└─ MongoDB (Mongoose)
+**Frontend**
+
+- Vue 3
+- Vuetify
+- Composition API
+- Vite
+
+**Backend**
+
+- Node.js (Express)
+- REST API (`/v1/users`)
+- MongoDB (Mongoose)
+
+**Cross-cutting concerns**
+
+- Validation: Joi
+- Normalization & parsing (shared for API & CSV)
+- Centralized error handling
+- Business rules isolated from controllers
+
+**Data import**
+
+- CSV import script (preferred)
+- Optional automatic import on startup (for reviewer convenience)
 
 ---
 
 ## Repository Structure
 
+````text
 Bewerbertest2026/
-├─ Backend/
-│ ├─ service/
-│ │ ├─ controller/
-│ │ ├─ routes/
-│ │ ├─ middleware/
-│ │ ├─ validation/
-│ │ ├─ csv/
-│ │ ├─ utils/
-│ │ ├─ constants/
-│ │ ├─ entity/
-│ │ ├─ errors/
-│ │ └─ config/
-│ │
-│ ├─ scripts/
-│ │ └─ importUsers.js
-│ ├─ data/
-│ │ └─ user.csv
-│ ├─ tests/
-│ ├─ Dockerfile.dev
-│ ├─ docker-compose.yml
-│ └─ index.js
+├── Backend/
+│   ├── service/
+│   │   ├── controller/        # Request handlers
+│   │   ├── routes/            # API routes
+│   │   ├── middleware/        # Validation, normalization, errors
+│   │   ├── validation/        # Joi schemas
+│   │   ├── csv/               # CSV parsing & business rules
+│   │   ├── utils/             # Shared parsers & helpers
+│   │   ├── constants/         # Allowed locations, enums
+│   │   ├── entity/            # Mongoose models
+│   │   ├── errors/            # AppError & error handling
+│   │   └── config/            # DB & app configuration
+│   ├── scripts/
+│   │   └── importUsers.js     # CSV import script
+│   ├── data/
+│   │   └── users.csv
+│   ├── tests/
+│   ├── Dockerfile.dev
+│   ├── docker-compose.yml
+│   └── app.js
 │
-├─ Frontend/
-│ └─ app/
-│ ├─ src/
-│ │ ├─ components/
-│ │ ├─ composables/
-│ │ ├─ services/
-│ │ ├─ pages/
-│ │ ├─ router/
-│ │ ├─ plugins/
-│ │ ├─ utils/
-│ │ └─ validation/
-│ │
-│ ├─ Dockerfile.dev
-│ ├─ docker-compose.yml
-│ └─ package.json
+├── Frontend/
+│   ├── src/
+│   │   ├── pages/             # `/users` route
+│   │   ├── components/
+│   │   ├── composables/
+│   │   ├── services/          # API calls
+│   │   ├── validation/
+│   │   └── utils/
+│   ├── Dockerfile.dev
+│   └── docker-compose.yml
 │
-└─ README.md
+└── README.md
 
 ---
 
@@ -129,10 +138,12 @@ From the **Backend** directory:
 ```bash
 cd Backend
 docker-compose up --build
-```
+````
 
 Backend API available at:
 http://localhost:4001/v1/users
+
+---
 
 API Endpoints Summary
 
@@ -154,6 +165,8 @@ Block a user
 • PATCH /v1/users/:id/unblock
 Unblock a user
 
+---
+
 2️⃣ Start Frontend
 From the Frontend/app directory:
 
@@ -173,15 +186,21 @@ locally: node scripts/importUsers.js
 Terminal: docker compose exec backend_service_user node scripts/importUsers.js
 ```
 
+---
+
 The script:
 
 • Imports valid users
 • Skips invalid rows
 • Reports validation & duplicate errors with CSV row numbers
 
+---
+
 Environment Variables
 • All required environment variables (including MONGO_URI) are defined via Docker Compose.
 • No manual .env configuration is required.
+
+---
 
 Testing
 • Joi schema tests for create/update users
@@ -198,6 +217,8 @@ Run Test from Backend Folder:
 ```bash
 npm run test
 ```
+
+---
 
 ###Reviewer Notes
 • CSV data is auto-imported on startup for reviewer convenience.
@@ -216,6 +237,8 @@ npm run test
 • Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
 
 • The frontend UI is available at /users, with / redirecting to the users view.
+
+---
 
 Author
 Kirolos Atef
