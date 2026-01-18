@@ -75,8 +75,7 @@ function formatDateTime(value) {
       <v-btn
         size="x-small"
         color="success"
-        min-width="100"
-        class="mr-1"
+        min-width="106"
         @click="$emit('unblock', item)"
         v-if="item.active === false"
       >

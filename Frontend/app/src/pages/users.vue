@@ -1,6 +1,4 @@
 <script setup>
-import { useRouter } from "vue-router";
-
 import { ref, computed, onMounted } from "vue";
 import { useUsers } from "@/composables/useUsers";
 
@@ -11,9 +9,6 @@ import UserFormDialog from "@/components/UserFormDialog.vue";
 /* ============================================================
  * COMPOSABLE (data + business logic)
  * ============================================================ */
-// Redirect to /users
-const router = useRouter();
-router.replace("/users");
 const {
   users,
   loading,

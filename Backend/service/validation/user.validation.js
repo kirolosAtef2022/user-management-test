@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const allowedLocations = require("../csv/csvLocations");
+const allowedLocations = require("../constants/csvLocations");
 
 const NAME_PART_REGEX = /^[A-Za-zÀ-ÖØ-öø-ÿ]{2,}$/;
 

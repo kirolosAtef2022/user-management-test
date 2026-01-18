@@ -10,8 +10,7 @@ const {
   parseDateTime,
   splitFullName,
   parseLocation,
-  capitalizeFirstLetter,
-} = require("./csvParsers");
+} = require("../utils/dataParsers");
 const { validateLastLoginBusinessRules } = require("./csvBusinessRules");
 
 const readUsersFromCSV = () => {
@@ -19,7 +18,6 @@ const readUsersFromCSV = () => {
     const users = [];
     const failed = [];
 
-    //const csvPath = path.resolve(__dirname, "../../../user.csv");
     const csvPath = path.resolve("/app/data/user.csv");
     let rowNumber = 0;
     fs.createReadStream(csvPath)
@@ -32,7 +30,7 @@ const readUsersFromCSV = () => {
 
           // 2️⃣ Normalize
           const fullName = normalizeString(row.Name);
-          const email = normalizeString(row.Email);
+          const email = normalizeString(row.Email).toLowerCase();
           const ip = normalizeString(row.IPAddress);
 
           // 3️⃣ Parse & transform

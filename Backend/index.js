@@ -9,7 +9,6 @@ const { importUsers } = require("./service/csv/importUsersToDB");
 
     // OK for the test — I will explain the tradeoff in interview
     await importUsers();
-
     app.listen(3000, () => {
       console.log("🚀 Backend running on port 3000");
     });

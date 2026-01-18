@@ -13,6 +13,7 @@ const {
 const loadUser = require("../middleware/loadUser");
 const validateBody = require("../middleware/validateBody");
 const checkUniqueEmail = require("../middleware/checkUniqueEmail");
+const normalizeAndParseAPI = require("../middleware/normalizeAndParseAPI");
 
 // validation schemas
 const {
@@ -33,7 +34,13 @@ router.get("/:id", loadUser, getUserById);
 /**
  * CREATE user
  */
-router.post("/", validateBody(createUserSchema), createUser);
+router.post(
+  "/",
+  normalizeAndParseAPI,
+  validateBody(createUserSchema),
+  checkUniqueEmail,
+  createUser
+);
 
 /**
  * UPDATE user
@@ -41,6 +48,7 @@ router.post("/", validateBody(createUserSchema), createUser);
 router.patch(
   "/:id",
   loadUser,
+  normalizeAndParseAPI,
   validateBody(updateUserSchema),
   checkUniqueEmail,
   updateUser

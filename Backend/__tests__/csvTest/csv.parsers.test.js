@@ -3,7 +3,7 @@ const {
   parseBoolean,
   parseDateTime,
   splitFullName,
-} = require("../../service/csv/csvParsers");
+} = require("../../service/utils/dataParsers");
 const AppError = require("../../service/errors/AppError");
 
 describe("CSV Parsers", () => {

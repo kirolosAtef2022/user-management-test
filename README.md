@@ -1,112 +1,222 @@
-# Bewerber Test 2026
+# Bewerbertest2026 – Full-Stack User Management System
 
-Dieses Projekt dient als technischer Bewerbertest und besteht aus einem **Backend (Node.js + Express)**, einer **MongoDB-Datenbank** sowie einem **Frontend (Vue 3 + Vite)**.  
-Alle Services werden lokal über **Docker** betrieben.
-
----
-
-## Aufgabe
-Erstelle eine Webapp in der folgende Funktionalitäten bereitgestellt werden:
-- Import der Userdaten aus der CSV in die Datenbank
-- Anzeige der Userdaten tabellarisch auf einer Webseite.
-- User anlegen und anpassen können
-- User blockieren und freischalten können
-- In der Tabelle nach verschiedenen Attributen sortieren und filtern können
-- Nutze für die Darstellung Vuetify
-
-In der Präsentation:
-- Vorstellung der App
-- Erklärung des Codes
-
-Wichtige Fragen:
-- Was würdest du an der Struktur vereinfachen?
-- Was sollte man ändern, wenn der Code in eine Produktivumgebung deployed wird? 
+Technical assessment project implementing a **full-stack user management system** with CSV import, validation, business rules, and a Vue 3 frontend.  
+The application is **fully Dockerized** with **separate Docker setups for backend and frontend**.
 
 ---
 
-## Voraussetzungen
-
-Bitte stelle sicher, dass folgende Tools installiert sind:
-
-- Node.js
-- npm
-- Docker
-- Docker Compose
-
----
-
-## Installation & Start
+## Tech Stack
 
 ### Backend
 
-```bash
-cd Backend
-npm install
-docker compose up --build
-```
-
-Das Backend läuft anschließend unter:
-
-http://localhost:4001
-
----
-
-### Datenbank
-
-Die MongoDB läuft in einem Docker-Container.  
-Die Datenbank kann initialisiert bzw. zurückgesetzt werden.
-
-```bash
-chmod +x initiateDB.sh
-./initiateDB.sh
-```
-
-Hinweis: MongoDB ist im Entwicklungsmodus **ohne Authentifizierung** konfiguriert.
-
----
+- Node.js + Express
+- MongoDB + Mongoose
+- Joi (schema validation)
+- CSV parsing & business rules
+- Docker / Docker Compose
 
 ### Frontend
 
-```bash
-cd Frontend
-npm install
-docker compose up --build
-```
-
-Das Frontend ist danach erreichbar unter:
-
-http://localhost:5001
+- Vue 3
+- Vuetify
+- Vite
+- Composition API
+- Docker / Docker Compose
 
 ---
 
-## Projektstruktur (Übersicht)
+## High-Level Architecture
 
-```bash
-Bewerbertest2026
-├── Backend
-│ ├── app
-│ ├── Database
-│ ├── docker-compose.yml
-│ ├── Dockerfile.dev
-│ ├── index.js
-│ └── package.json
+Frontend (Vue 3 + Vuetify)
 │
-├── Frontend
-│ ├── app
-│ ├── docker-compose.yml
-│ └── Dockerfile.dev
-│
-├── user.csv
-└── README.md
-```
+│ REST API
+▼
+Backend (Express)
+├─ Validation (Joi)
+├─ Normalization & Parsing
+├─ Business Rules
+├─ CSV Import Script
+└─ MongoDB (Mongoose)
 
 ---
 
-## Hinweise
+## Repository Structure
 
-- Backend und Frontend laufen in getrennten Docker-Containern
-- Hot Reload ist für beide Services aktiviert
-- Die API ist über Docker-internes Networking mit MongoDB verbunden
+Bewerbertest2026/
+├─ Backend/
+│ ├─ service/
+│ │ ├─ controller/
+│ │ ├─ routes/
+│ │ ├─ middleware/
+│ │ ├─ validation/
+│ │ ├─ csv/
+│ │ ├─ utils/
+│ │ ├─ constants/
+│ │ ├─ entity/
+│ │ ├─ errors/
+│ │ └─ config/
+│ │
+│ ├─ scripts/
+│ │ └─ importUsers.js
+│ ├─ data/
+│ │ └─ user.csv
+│ ├─ tests/
+│ ├─ Dockerfile.dev
+│ ├─ docker-compose.yml
+│ └─ index.js
+│
+├─ Frontend/
+│ └─ app/
+│ ├─ src/
+│ │ ├─ components/
+│ │ ├─ composables/
+│ │ ├─ services/
+│ │ ├─ pages/
+│ │ ├─ router/
+│ │ ├─ plugins/
+│ │ ├─ utils/
+│ │ └─ validation/
+│ │
+│ ├─ Dockerfile.dev
+│ ├─ docker-compose.yml
+│ └─ package.json
+│
+└─ README.md
 
+---
 
-Viel Erfolg beim Bewerbertest 🚀
+## Backend Design Highlights
+
+- **Normalization before validation** (API & CSV)
+- **Shared parsers** reused by CSV and API
+- **Business rules isolated** from controllers
+- **Centralized error handling** via `AppError`
+- **Duplicate email detection** before DB insert
+- Partial CSV imports using `insertMany({ ordered: false })`
+
+---
+
+## CSV Import Flow
+
+1. Read CSV file
+2. Required field guards
+3. Normalize & parse values
+4. Apply business rules
+5. Joi validation
+6. Detect duplicate emails
+7. Insert valid users
+8. Report failed rows with row numbers
+
+---
+
+## Frontend Highlights
+
+- Vue 3 Composition API
+- Centralized state via composables
+- Fixed-size action buttons (layout stability)
+- Disabled actions based on user state
+- Clear Block / Unblock UX
+- Snackbar-based success & error feedback
+
+---
+
+## Running the Project (Docker)
+
+### 1️⃣ Start Backend + MongoDB
+
+From the **Backend** directory:
+
+```bash
+cd Backend
+docker-compose up --build
+```
+
+Backend API available at:
+http://localhost:4001/v1/users
+
+API Endpoints Summary
+
+• GET /v1/users
+Retrieve all users
+
+• GET /v1/users/:id
+Retrieve a single user by ID
+
+• POST /v1/users
+Create a new user
+
+• PATCH /v1/users/:id
+Update an existing user
+
+• PATCH /v1/users/:id/block
+Block a user
+
+• PATCH /v1/users/:id/unblock
+Unblock a user
+
+2️⃣ Start Frontend
+From the Frontend/app directory:
+
+```bash
+cd Frontend/app
+docker-compose up --build
+```
+
+Frontend available at:
+http://localhost:5001/users
+
+CSV Import Script
+Run inside Backend container or locally:
+
+```bash
+locally: node scripts/importUsers.js
+Terminal: docker compose exec backend_service_user node scripts/importUsers.js
+```
+
+The script:
+
+• Imports valid users
+• Skips invalid rows
+• Reports validation & duplicate errors with CSV row numbers
+
+Environment Variables
+• All required environment variables (including MONGO_URI) are defined via Docker Compose.
+• No manual .env configuration is required.
+
+Testing
+• Joi schema tests for create/update users
+• CSV validation tests
+• Business rule coverage
+Tests are located in:
+
+```bash
+Backend/__tests__/
+```
+
+Run Test from Backend Folder:
+
+```bash
+npm run test
+```
+
+###Reviewer Notes
+• CSV data is auto-imported on startup for reviewer convenience.
+• A dedicated import script is included and is the preferred production approach.
+
+• Same normalization & parsing logic is reused across CSV and API
+• Validation is enforced at multiple layers
+• Clear separation of:
+
+- validation
+- normalization
+- business rules
+- persistence
+- Project structure is optimized for maintainability and scalability
+
+• Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
+
+• The frontend UI is available at /users, with / redirecting to the users view.
+
+Author
+Kirolos Atef
+Full-Stack JavaScript Developer

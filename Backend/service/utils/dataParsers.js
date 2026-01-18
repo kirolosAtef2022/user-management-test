@@ -1,7 +1,10 @@
 const AppError = require("../errors/AppError");
-const allowedLocations = require("./csvLocations");
+const allowedLocations = require("../constants/csvLocations");
 
+//normalize string by trimming whitespace
 const normalizeString = (value) => value.trim();
+
+//parse boolean from string
 const parseBoolean = (value) => {
   if (value === true || value.toLowerCase() === "true") return true;
   if (value === false || value.toLowerCase() === "false") return false;
@@ -12,6 +15,7 @@ const parseBoolean = (value) => {
   });
 };
 
+//parse location and validate against allowed locations
 const parseLocation = (value) => {
   const normalizedLocation = normalizeString(value);
   const parsedLocation = capitalizeFirstLetter(normalizedLocation);
@@ -26,6 +30,7 @@ const parseLocation = (value) => {
   return parsedLocation;
 };
 
+//parse date time from string
 const parseDateTime = (value) => {
   const date = new Date(normalizeString(value).replace(" ", "T"));
   if (isNaN(date.getTime())) {
@@ -38,6 +43,7 @@ const parseDateTime = (value) => {
   return date;
 };
 
+//split full name into first and last name
 const splitFullName = (fullName) => {
   const parts = fullName.split(" ").filter(Boolean);
 
@@ -55,8 +61,30 @@ const splitFullName = (fullName) => {
   };
 };
 
+//capitalize the first letter of a string
 function capitalizeFirstLetter(value) {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+// Detect duplicate emails within the CSV data
+function detectDuplicateEmails(users) {
+  const seen = new Set();
+  const valid = [];
+  const duplicates = [];
+
+  users.forEach((user, index) => {
+    if (seen.has(user.email)) {
+      duplicates.push({
+        rowNumber: index + 1,
+        error: "Duplicate email in CSV file",
+      });
+    } else {
+      seen.add(user.email);
+      valid.push(user);
+    }
+  });
+
+  return { valid, duplicates };
 }
 
 module.exports = {
@@ -66,4 +94,5 @@ module.exports = {
   parseDateTime,
   splitFullName,
   capitalizeFirstLetter,
+  detectDuplicateEmails,
 };
