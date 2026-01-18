@@ -34,19 +34,8 @@ const createUser = async (req, res, next) => {
     });
 
     res.status(201).json(user);
-  } catch (err) {
-    // Mongo duplicate email safety net
-    if (err.code === 11000 && err.keyPattern?.email) {
-      return next(
-        new AppError({
-          message: "Email is already registered",
-          statusCode: 409,
-          code: "EMAIL_ALREADY_EXISTS",
-        })
-      );
-    }
-
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 

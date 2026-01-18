@@ -12,7 +12,7 @@ const checkUniqueEmail = async (req, res, next) => {
   if (existingUser) {
     return next(
       new AppError({
-        message: "Email already exists",
+        message: "Email is already registered",
         statusCode: 409,
         code: "EMAIL_ALREADY_EXISTS",
       })

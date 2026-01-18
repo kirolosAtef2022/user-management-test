@@ -8,8 +8,13 @@ async function importUsers() {
   console.log("Importing users from CSV...");
 
   const { users, failed } = await readUsersFromCSV();
+
+  //check & detect Dublicate Emails with Detailed Error
   const { valid, duplicates } = detectDuplicateEmails(users);
+
+  //combine all failed rows form validation & Email uniqueness
   const allFailed = [...failed, ...duplicates];
+
   if (!valid.length) {
     console.log("No valid users to import");
     if (allFailed.length > 0) {
@@ -33,6 +38,7 @@ async function importUsers() {
   }
 
   try {
+    //Insert to Database
     await User.insertMany(valid, { ordered: false });
     console.log(`Imported ${valid.length} users into MongoDB`);
   } catch (error) {
