@@ -82,11 +82,11 @@ Bewerbertest2026/
 ├── Frontend/
 │   ├── src/
 │   │   ├── pages/             # `/users` route
-│   │   ├── components/
-│   │   ├── composables/
+│   │   ├── components/        # Reusable UI components
+│   │   ├── composables/       # Logic Code
 │   │   ├── services/          # API calls
-│   │   ├── validation/
-│   │   └── utils/
+│   │   ├── validation/        # Frontend Validation
+│   │   └── utils/             # Shared Code
 │   ├── Dockerfile.dev
 │   └── docker-compose.yml
 │

@@ -16,7 +16,7 @@ watch(search, (val) => {
       density="compact"
       hide-details
       clearable
-      style="max-width: 250px"
+      style="max-width: 550px"
     />
 
     <v-btn color="primary" @click="$emit('create')"> + Create User </v-btn>
