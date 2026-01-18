@@ -221,12 +221,13 @@ npm run test
 ---
 
 ###Reviewer Notes
-• CSV data is auto-imported on startup for reviewer convenience.
-• A dedicated import script is included and is the preferred production approach.
 
-• Same normalization & parsing logic is reused across CSV and API
-• Validation is enforced at multiple layers
-• Clear separation of:
+1. CSV data is auto-imported on startup for reviewer convenience.
+2. A dedicated import script is included and is the preferred production approach.
+
+3. Same normalization & parsing logic is reused across CSV and API
+4. Validation is enforced at multiple layers
+5. Clear separation of:
 
 - validation
 - normalization
@@ -234,9 +235,9 @@ npm run test
 - persistence
 - Project structure is optimized for maintainability and scalability
 
-• Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
+6. Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
 
-• The frontend UI is available at /users, with / redirecting to the users view.
+7. The frontend UI is available at /users, with / redirecting to the users view.
 
 ---
 
