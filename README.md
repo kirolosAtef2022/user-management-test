@@ -97,12 +97,12 @@ Bewerbertest2026/
 
 ### Backend Design Highlights
 
-**Normalization before validation** (API & CSV)
-**Shared parsers** reused by CSV and API
-**Business rules isolated** from controllers
-**Centralized error handling** via `AppError`
-**Duplicate email detection** before DB insert
-Partial CSV imports using `insertMany({ ordered: false })`
+- Normalization before validation (API & CSV)
+- Shared parsers reused by CSV and API
+- Business rules isolated from controllers
+- Centralized error handling via `AppError`
+- Duplicate email detection before DB insert
+- Partial CSV imports using `insertMany({ ordered: false })`
 
 ---
 
@@ -128,7 +128,7 @@ Partial CSV imports using `insertMany({ ordered: false })`
 - Clear Block / Unblock UX
 - Snackbar-based success & error feedback
 
-### Running the Project (Docker)
+## Running the Project (Docker)
 
 ### Start Backend + MongoDB
 
