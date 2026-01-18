@@ -161,29 +161,17 @@ http://localhost:4001/v1/users
 
 ## API Endpoints Summary
 
-### GET /v1/users
+#### GET /v1/users
 
-Retrieve all users
+#### GET /v1/users/:id
 
-### GET /v1/users/:id
+#### POST /v1/users
 
-Retrieve a single user by ID
+#### PATCH /v1/users/:id
 
-### POST /v1/users
+#### PATCH /v1/users/:id/block
 
-Create a new user
-
-### PATCH /v1/users/:id
-
-Update an existing user
-
-### PATCH /v1/users/:id/block
-
-Block a user
-
-### PATCH /v1/users/:id/unblock
-
-Unblock a user
+#### PATCH /v1/users/:id/unblock
 
 ---
 
