@@ -53,31 +53,34 @@ function formatDateTime(value) {
     <template #item.actions="{ item }">
       <v-btn
         size="x-small"
-        color="success"
+        color="primary"
+        v-show="item.active"
+        v-if="item.active === true"
         class="mr-1"
+        min-width="50"
+        @click="$emit('edit', item)"
+      >
+        Edit
+      </v-btn>
+      <v-btn
+        size="x-small"
+        min-width="50"
+        color="error"
         @click="$emit('block', item)"
-        :disabled="!item.active"
+        v-if="item.active === true"
       >
         Block
       </v-btn>
 
       <v-btn
         size="x-small"
-        color="error"
+        color="success"
+        min-width="100"
         class="mr-1"
         @click="$emit('unblock', item)"
-        :disabled="item.active"
+        v-if="item.active === false"
       >
         Unblock
-      </v-btn>
-
-      <v-btn
-        size="x-small"
-        color="primary"
-        :disabled="!item.active"
-        @click="$emit('edit', item)"
-      >
-        Edit
       </v-btn>
     </template>
   </v-data-table>
