@@ -9,19 +9,19 @@ The application is **fully Dockerized** with **separate Docker setups for backen
 
 ### Backend
 
-- Node.js + Express
-- MongoDB + Mongoose
-- Joi (schema validation)
-- CSV parsing & business rules
-- Docker / Docker Compose
+Node.js + Express
+MongoDB + Mongoose
+Joi (schema validation)
+CSV parsing & business rules
+Docker / Docker Compose
 
 ### Frontend
 
-- Vue 3
-- Vuetify
-- Vite
-- Composition API
-- Docker / Docker Compose
+Vue 3
+Vuetify
+Vite
+Composition API
+Docker / Docker Compose
 
 ---
 
@@ -29,34 +29,34 @@ The application is **fully Dockerized** with **separate Docker setups for backen
 
 **Frontend**
 
-- Vue 3
-- Vuetify
-- Composition API
-- Vite
+Vue 3
+Vuetify
+Composition API
+Vite
 
 **Backend**
 
-- Node.js (Express)
-- REST API (`/v1/users`)
-- MongoDB (Mongoose)
+Node.js (Express)
+REST API (`/v1/users`)
+MongoDB (Mongoose)
 
 **Cross-cutting concerns**
 
-- Validation: Joi
-- Normalization & parsing (shared for API & CSV)
-- Centralized error handling
-- Business rules isolated from controllers
+Validation: Joi
+Normalization & parsing (shared for API & CSV)
+Centralized error handling
+Business rules isolated from controllers
 
 **Data import**
 
-- CSV import script (preferred)
-- Optional automatic import on startup (for reviewer convenience)
+CSV import script (preferred)
+Optional automatic import on startup (for reviewer convenience)
 
 ---
 
 ## Repository Structure
 
-````text
+```text
 Bewerbertest2026/
 ├── Backend/
 │   ├── service/
@@ -91,29 +91,29 @@ Bewerbertest2026/
 │   └── docker-compose.yml
 │
 └── README.md
+```
 
 ---
 
 ## Backend Design Highlights
 
-- **Normalization before validation** (API & CSV)
-- **Shared parsers** reused by CSV and API
-- **Business rules isolated** from controllers
-- **Centralized error handling** via `AppError`
-- **Duplicate email detection** before DB insert
-- Partial CSV imports using `insertMany({ ordered: false })`
-
+**Normalization before validation** (API & CSV)
+**Shared parsers** reused by CSV and API
+**Business rules isolated** from controllers
+**Centralized error handling** via `AppError`
+**Duplicate email detection** before DB insert
+Partial CSV imports using `insertMany({ ordered: false })`
 
 ## CSV Import Flow
 
-1. Read CSV file
-2. Required field guards
-3. Normalize & parse values
-4. Apply business rules
-5. Joi validation
-6. Detect duplicate emails
-7. Insert valid users
-8. Report failed rows with row numbers
+Read CSV file
+Required field guards
+Normalize & parse values
+Apply business rules
+Joi validation
+Detect duplicate emails
+Insert valid users
+Report failed rows with row numbers
 
 ## Frontend Highlights
 
@@ -124,10 +124,9 @@ Bewerbertest2026/
 - Clear Block / Unblock UX
 - Snackbar-based success & error feedback
 
+### Running the Project (Docker)
 
-## Running the Project (Docker)
-
-### 1️⃣ Start Backend + MongoDB
+## Start Backend + MongoDB
 
 From the **Backend** directory:
 
@@ -136,34 +135,57 @@ cd Backend
 docker compose up --build
 ```
 
+### CSV Import Script
+
+## The script:
+
+Imports valid users
+Skips invalid rows
+Reports validation & duplicate errors with CSV row numbers
+
+Run inside Backend container or locally:
+
+```bash
+node scripts/importUsers.js
+docker compose exec backend_service_user node scripts/importUsers.js
+```
+
 Backend API available at:
+
 http://localhost:4001/v1/users
 
 ---
 
-API Endpoints Summary
+### API Endpoints Summary
 
-• GET /v1/users
+## GET /v1/users
+
 Retrieve all users
 
-• GET /v1/users/:id
+## GET /v1/users/:id
+
 Retrieve a single user by ID
 
-• POST /v1/users
+## POST /v1/users
+
 Create a new user
 
-• PATCH /v1/users/:id
+## PATCH /v1/users/:id
+
 Update an existing user
 
-• PATCH /v1/users/:id/block
+## PATCH /v1/users/:id/block
+
 Block a user
 
-   • PATCH /v1/users/:id/unblock
+## PATCH /v1/users/:id/unblock
+
 Unblock a user
 
 ---
 
-2️⃣ Start Frontend
+## Start Frontend
+
 From the Frontend/app directory:
 
 ```bash
@@ -172,39 +194,25 @@ docker compose up --build
 ```
 
 Frontend available at:
+
 http://localhost:5001/users
 
-CSV Import Script
-Run inside Backend container or locally:
-
-```bash
-node scripts/importUsers.js
-docker compose exec backend_service_user node scripts/importUsers.js
-```
-
 ---
 
-The script:
+## Environment Variables
 
-• Imports valid users
-• Skips invalid rows
-• Reports validation & duplicate errors with CSV row numbers
-
----
-
-Environment Variables
 • All required environment variables (including MONGO_URI) are defined via Docker Compose.
 • No manual .env configuration is required.
 
 ---
 
-Testing
+## Testing
+
 • Joi schema tests for create/update users
 • CSV validation tests
 • Business rule coverage
 Tests are located in:
-Backend/__tests__/
-
+Backend/**tests**/
 
 Run Test from Backend Folder:
 
@@ -214,28 +222,30 @@ npm run test
 
 ---
 
-###Reviewer Notes
+### Reviewer Notes
 
-1. CSV data is auto-imported on startup for reviewer convenience.
-2. A dedicated import script is included and is the preferred production approach.
+# CSV data is auto-imported on startup for reviewer convenience.
 
-3. Same normalization & parsing logic is reused across CSV and API
-4. Validation is enforced at multiple layers
-5. Clear separation of:
+# A dedicated import script is included and is the preferred production approach.
 
-- validation
-- normalization
-- business rules
-- persistence
-- Project structure is optimized for maintainability and scalability
+# Same normalization & parsing logic is reused across CSV and API
 
-6. Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
+# Validation is enforced at multiple layers
 
-7. The frontend UI is available at /users, with / redirecting to the users view.
+# Clear separation of:
+
+validation
+normalization
+business rules
+persistence
+Project structure is optimized for maintainability and scalability
+
+# Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
+
+# The frontend UI is available at /users, with / redirecting to the users view.
 
 ---
 
 Author
-Kirolos Atef
 
-````
+### Kirolos Atef
