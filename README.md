@@ -9,43 +9,43 @@ The application is **fully Dockerized** with **separate Docker setups for backen
 
 ### Backend
 
-Node.js + Express
-MongoDB + Mongoose
-Joi (schema validation)
-CSV parsing & business rules
-Docker / Docker Compose
+- Node.js + Express
+- MongoDB + Mongoose
+- Joi (schema validation)
+- CSV parsing & business rules
+- Docker / Docker Compose
 
 ### Frontend
 
-Vue 3
-Vuetify
-Vite
-Composition API
-Docker / Docker Compose
+- Vue 3
+- Vuetify
+- Vite
+- Composition API
+- Docker / Docker Compose
 
 ---
 
-## High-Level Architecture
+### High-Level Architecture
 
 **Frontend**
 
-Vue 3
-Vuetify
-Composition API
-Vite
+- Vue 3
+- Vuetify
+- Composition API
+- Vite
 
 **Backend**
 
-Node.js (Express)
-REST API (`/v1/users`)
-MongoDB (Mongoose)
+- Node.js (Express)
+- REST API (`/v1/users`)
+- MongoDB (Mongoose)
 
 **Cross-cutting concerns**
 
-Validation: Joi
-Normalization & parsing (shared for API & CSV)
-Centralized error handling
-Business rules isolated from controllers
+- Validation: Joi
+- Normalization & parsing (shared for API & CSV)
+- Centralized error handling
+- Business rules isolated from controllers
 
 **Data import**
 
@@ -54,7 +54,7 @@ Optional automatic import on startup (for reviewer convenience)
 
 ---
 
-## Repository Structure
+### Repository Structure
 
 ```text
 Bewerbertest2026/
@@ -95,7 +95,7 @@ Bewerbertest2026/
 
 ---
 
-## Backend Design Highlights
+### Backend Design Highlights
 
 **Normalization before validation** (API & CSV)
 **Shared parsers** reused by CSV and API
@@ -104,18 +104,22 @@ Bewerbertest2026/
 **Duplicate email detection** before DB insert
 Partial CSV imports using `insertMany({ ordered: false })`
 
-## CSV Import Flow
+---
 
-Read CSV file
-Required field guards
-Normalize & parse values
-Apply business rules
-Joi validation
-Detect duplicate emails
-Insert valid users
-Report failed rows with row numbers
+### CSV Import Flow
 
-## Frontend Highlights
+- Read CSV file
+- Required field guards
+- Normalize & parse values
+- Apply business rules
+- Joi validation
+- Detect duplicate emails
+- Insert valid users
+- Report failed rows with row numbers
+
+---
+
+### Frontend Highlights
 
 - Vue 3 Composition API
 - Centralized state via composables
@@ -126,7 +130,7 @@ Report failed rows with row numbers
 
 ### Running the Project (Docker)
 
-## Start Backend + MongoDB
+### Start Backend + MongoDB
 
 From the **Backend** directory:
 
@@ -137,16 +141,15 @@ docker compose up --build
 
 ### CSV Import Script
 
-## The script:
+### The script:
 
-Imports valid users
-Skips invalid rows
-Reports validation & duplicate errors with CSV row numbers
+- Imports valid users
+- Skips invalid rows
+- Reports validation & duplicate errors with CSV row numbers
 
-Run inside Backend container or locally:
+### Run inside Backend container:
 
 ```bash
-node scripts/importUsers.js
 docker compose exec backend_service_user node scripts/importUsers.js
 ```
 
@@ -156,29 +159,29 @@ http://localhost:4001/v1/users
 
 ---
 
-### API Endpoints Summary
+## API Endpoints Summary
 
-## GET /v1/users
+### GET /v1/users
 
 Retrieve all users
 
-## GET /v1/users/:id
+### GET /v1/users/:id
 
 Retrieve a single user by ID
 
-## POST /v1/users
+### POST /v1/users
 
 Create a new user
 
-## PATCH /v1/users/:id
+### PATCH /v1/users/:id
 
 Update an existing user
 
-## PATCH /v1/users/:id/block
+### PATCH /v1/users/:id/block
 
 Block a user
 
-## PATCH /v1/users/:id/unblock
+### PATCH /v1/users/:id/unblock
 
 Unblock a user
 
@@ -199,22 +202,23 @@ http://localhost:5001/users
 
 ---
 
-## Environment Variables
+### Environment Variables
 
 • All required environment variables (including MONGO_URI) are defined via Docker Compose.
 • No manual .env configuration is required.
 
 ---
 
-## Testing
+### Testing
 
-• Joi schema tests for create/update users
-• CSV validation tests
-• Business rule coverage
+- Joi schema tests for create/update users
+- CSV validation tests
+- Business rule coverage
+
 Tests are located in:
 Backend/**tests**/
 
-Run Test from Backend Folder:
+### Run Test from Backend Folder:
 
 ```bash
 npm run test
@@ -222,27 +226,19 @@ npm run test
 
 ---
 
-### Reviewer Notes
+## Reviewer Notes
 
-# CSV data is auto-imported on startup for reviewer convenience.
+- CSV data is auto-imported on startup for reviewer convenience.
 
-# A dedicated import script is included and is the preferred production approach.
+- A dedicated import script is included and is the preferred production approach.
 
-# Same normalization & parsing logic is reused across CSV and API
+- Same normalization & parsing logic is reused across CSV and API
 
-# Validation is enforced at multiple layers
+- Validation is enforced at multiple layers.
 
-# Clear separation of:
+- Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
 
-validation
-normalization
-business rules
-persistence
-Project structure is optimized for maintainability and scalability
-
-# Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
-
-# The frontend UI is available at /users, with / redirecting to the users view.
+- The frontend UI is available at /users, with / redirecting to the users view.
 
 ---
 
