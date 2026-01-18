@@ -214,19 +214,13 @@ npm run test
 
 ---
 
-## Reviewer Notes
+### Reviewer Notes
 
 - CSV data is auto-imported on startup for reviewer convenience.
 
 - A dedicated import script is included and is the preferred production approach.
 
-- Same normalization & parsing logic is reused across CSV and API
-
-- Validation is enforced at multiple layers.
-
 - Locations are derived from the CSV and treated as allowed constants to avoid introducing additional CRUD complexity.
-
-- The frontend UI is available at /users, with / redirecting to the users view.
 
 ---
 
