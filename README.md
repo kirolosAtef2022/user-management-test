@@ -138,7 +138,7 @@ From the **Backend** directory:
 ```bash
 cd Backend
 docker-compose up --build
-````
+```
 
 Backend API available at:
 http://localhost:4001/v1/users
@@ -173,6 +173,7 @@ From the Frontend/app directory:
 ```bash
 cd Frontend/app
 docker-compose up --build
+
 ```
 
 Frontend available at:
@@ -243,4 +244,4 @@ npm run test
 
 Author
 Kirolos Atef
-Full-Stack JavaScript Developer
+````
