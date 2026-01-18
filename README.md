@@ -103,7 +103,6 @@ Bewerbertest2026/
 - **Duplicate email detection** before DB insert
 - Partial CSV imports using `insertMany({ ordered: false })`
 
----
 
 ## CSV Import Flow
 
@@ -116,8 +115,6 @@ Bewerbertest2026/
 7. Insert valid users
 8. Report failed rows with row numbers
 
----
-
 ## Frontend Highlights
 
 - Vue 3 Composition API
@@ -127,7 +124,6 @@ Bewerbertest2026/
 - Clear Block / Unblock UX
 - Snackbar-based success & error feedback
 
----
 
 ## Running the Project (Docker)
 
@@ -137,7 +133,7 @@ From the **Backend** directory:
 
 ```bash
 cd Backend
-docker-compose up --build
+docker compose up --build
 ```
 
 Backend API available at:
@@ -162,7 +158,7 @@ Update an existing user
 • PATCH /v1/users/:id/block
 Block a user
 
-• PATCH /v1/users/:id/unblock
+   • PATCH /v1/users/:id/unblock
 Unblock a user
 
 ---
@@ -172,8 +168,7 @@ From the Frontend/app directory:
 
 ```bash
 cd Frontend/app
-docker-compose up --build
-
+docker compose up --build
 ```
 
 Frontend available at:
@@ -183,8 +178,8 @@ CSV Import Script
 Run inside Backend container or locally:
 
 ```bash
-locally: node scripts/importUsers.js
-Terminal: docker compose exec backend_service_user node scripts/importUsers.js
+node scripts/importUsers.js
+docker compose exec backend_service_user node scripts/importUsers.js
 ```
 
 ---
@@ -208,10 +203,8 @@ Testing
 • CSV validation tests
 • Business rule coverage
 Tests are located in:
-
-```bash
 Backend/__tests__/
-```
+
 
 Run Test from Backend Folder:
 
@@ -244,4 +237,5 @@ npm run test
 
 Author
 Kirolos Atef
+
 ````
