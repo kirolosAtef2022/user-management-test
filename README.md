@@ -192,8 +192,8 @@ http://localhost:5001/users
 
 ### Environment Variables
 
-• All required environment variables (including MONGO_URI) are defined via Docker Compose.
-• No manual .env configuration is required.
+- All required environment variables are defined via Docker Compose.
+- No manual .env configuration is required.
 
 ---
 
