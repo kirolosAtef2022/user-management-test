@@ -27,7 +27,7 @@ export function normalizeUserForm(form) {
   return {
     firstName: capitalizeFirstLetter(form.firstName),
     lastName: capitalizeFirstLetter(form.lastName),
-    email: form.email.trim(),
+    email: form.email.trim().toLowerCase(),
     ip: form.ip.trim(),
     location: form.location,
     active: form.active,
