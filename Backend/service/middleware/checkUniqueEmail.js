@@ -2,24 +2,28 @@ const User = require("../entity/User");
 const AppError = require("../errors/AppError");
 
 const checkUniqueEmail = async (req, res, next) => {
-  if (!req.body.email) return next();
+  try {
+    if (!req.body.email) return next();
 
-  const existingUser = await User.findOne({
-    email: req.body.email,
-    _id: { $ne: req.params.id },
-  });
+    const existingUser = await User.findOne({
+      email: req.body.email,
+      _id: { $ne: req.params.id },
+    });
 
-  if (existingUser) {
-    return next(
-      new AppError({
-        message: "Email is already registered",
-        statusCode: 409,
-        code: "EMAIL_ALREADY_EXISTS",
-      })
-    );
+    if (existingUser) {
+      return next(
+        new AppError({
+          message: "Email is already registered",
+          statusCode: 409,
+          code: "EMAIL_ALREADY_EXISTS",
+        })
+      );
+    }
+    next();
+  } catch (err) {
+    // 🔥 pass ANY unexpected error to centralized error handler
+    next(err);
   }
-
-  next();
 };
 
 module.exports = checkUniqueEmail;
