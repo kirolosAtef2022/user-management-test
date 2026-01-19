@@ -13,6 +13,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     ErrorSnackbar: typeof import('./src/components/ErrorSnackbar.vue')['default']
+    GlobalSnackbar: typeof import('./src/components/GlobalSnackbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SuccessSnackbar: typeof import('./src/components/SuccessSnackbar.vue')['default']

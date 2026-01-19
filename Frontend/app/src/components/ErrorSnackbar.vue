@@ -28,7 +28,7 @@ const emit = defineEmits(["update:modelValue"]);
   <v-snackbar
     :model-value="modelValue"
     color="error"
-    timeout="4000"
+    timeout="5000"
     location="bottom left"
     @update:model-value="emit('update:modelValue', $event)"
   >

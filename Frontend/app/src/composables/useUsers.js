@@ -22,22 +22,37 @@ export function useUsers() {
   // ===== LOAD USERS =====
   async function loadUsers() {
     loading.value = true;
-    const { data } = await getUsers();
-    users.value = [...data]; // keep reactivity
-    loading.value = false;
+    try {
+      const { data } = await getUsers();
+      users.value = [...data]; // keep reactivity
+    } finally {
+      loading.value = false;
+    }
   }
 
   // ===== BLOCK / UNBLOCK =====
   async function toggleStatusBlock(user) {
-    // optimistic UI update
+    const prev = user.active;
     user.active = false;
-    await toggleUserBlock(user._id);
+
+    try {
+      await toggleUserBlock(user._id);
+    } catch (err) {
+      user.active = prev; // rollback
+      throw err; // let component decide what to do
+    }
   }
 
   async function toggleStatusUnblock(user) {
-    // optimistic UI update
+    const prev = user.active;
     user.active = true;
-    await toggleUserUnblock(user._id);
+
+    try {
+      await toggleUserUnblock(user._id);
+    } catch (err) {
+      user.active = prev;
+      throw err;
+    }
   }
 
   // ===== CREATE / EDIT =====
@@ -51,9 +66,9 @@ export function useUsers() {
     dialogOpen.value = true;
   }
 
-  function onSaved() {
+  async function onSaved() {
     dialogOpen.value = false;
-    loadUsers();
+    await loadUsers();
   }
 
   return {
